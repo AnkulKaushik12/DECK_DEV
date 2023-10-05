@@ -1,0 +1,183 @@
+/* Drag.scss */
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // height: 100vh;
+  }
+  
+  .drag-container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .decks-section {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .decks-section > h2 {
+    color: black;
+  }
+  
+  .add-new-button {
+    border: 1px dotted #000;
+    border-radius: 8px;
+    padding: 1px;
+    text-align: center;
+    width: 5.9rem;
+    height: 2.5rem;
+    background-color: black;
+    color: white;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    border-radius: 10px;
+    width: 520px;
+    height: 400px;
+  }
+  
+  .modal-title {
+    color: black;
+  }
+  
+  .upload-section {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .file-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .file-button {
+    border: 1px solid #000;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .remove-button {
+    border: 1px solid #000;
+    padding: 12px;
+    text-align: center;
+    margin-left: 8px;
+  }
+  
+  .upload-button {
+    border: 1px solid #000;
+    color: black;
+    border-radius: 5px;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .or-text {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    color: black;
+  }
+  
+  .import-text {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    color: black;
+  }
+  
+  .url-input-section {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .url-input {
+    border: 1px solid #000;
+    padding: 8px;
+    border-radius: 5px;
+    width: 80%;
+  }
+  
+  .import-button-section {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .import-button {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    width: 80%;
+  }
+  
+  .close-button {
+    margin-top: 1rem;
+    border: 1px solid #000;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    text-align: center;
+  }
+  
+  .progress-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .cancel-button {
+    margin-top: 1rem;
+    border: 1px solid #000;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .imported-button-section {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .imported-button {
+    border: 1px solid #000;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    min-width: 100px;
+    margin-bottom: 1rem;
+  }
+  
+  .open-deck-button {
+    margin-right: 10px;
+  }
+  
+  .go-back-button {
+    margin-left: 10px;
+  }
+//   .add-deck {
+//     display: flex;
+//     justify-content: space-between;
+//     justify-content: center;
+//   }
