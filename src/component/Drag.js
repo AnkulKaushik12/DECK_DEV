@@ -8,6 +8,7 @@ const Drag = () => {
   const [selectedDocUrl, setSelectedDocUrl] = useState("");
   const [showDoc, setShowDoc] = useState(false);
   const [inputUrl, setInputUrl] = useState("");
+  
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -67,15 +68,8 @@ const Drag = () => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          // height: "100vh",
-        }}
-      >
-        <div
+      <div className="container">
+        <div className="drag-container"
           style={{
             display: "flex",
             gap: "20px",
@@ -123,7 +117,23 @@ const Drag = () => {
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()} // Prevent default to allow drop
           >
-            <h6 style={{color: "black"}}>Add New Deck</h6>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{color: "black"}}>Add New Deck</span>
+            <button
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "12px",
+                height: "1rem",
+                borderRadius: "5px",
+                backgroundColor: "black",
+                color: "white",
+              }}
+              onClick={handleCloseModal}
+            >
+              X
+            </button>
+            </div>
             <div
               style={{
                 marginTop: "2rem",
@@ -240,20 +250,7 @@ const Drag = () => {
                 Import
               </button>
             </div>
-            <button
-              style={{
-                marginTop: "1rem",
-                border: "1px solid #000",
-                padding: "12px",
-                borderRadius: "5px",
-                backgroundColor: "black",
-                color: "white",
-                textAlign: "center",
-              }}
-              onClick={handleCloseModal}
-            >
-              Close
-            </button>
+           
           </div>
         )}
 
