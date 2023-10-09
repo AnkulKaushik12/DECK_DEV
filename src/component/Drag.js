@@ -2,15 +2,17 @@ import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiUrls } from "../utils/apiUrls";
 import { callAPI } from "../utils/apiUtils";
+// import './Drag.scss'
 const Drag = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isImported, setIsImported] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
-  const [selectedDocUrl, setSelectedDocUrl] = useState("");
+  const [SelectedDocUrl, setSelectedDocUrl] = useState("");
   const [showDoc, setShowDoc] = useState(false);
   const [inputUrl, setInputUrl] = useState("");
   const [val, setVal] = useState([]);
+  const [file, setFile] = useState([]);
 
   const navigate = useNavigate();
 
@@ -36,24 +38,51 @@ const Drag = () => {
     }
   };
 
-  const handleFileSelect = (event) => {
+  // const handleFileSelect = (event) => {
+  //   const files = event.target.files;
+  //   // Handle the selected files, e.g., upload or process them.
+  //   console.log("Selected files:", files);
+  //   // Display the first selected file in the upload section
+  //   if (files.length > 0) {
+  //     setUploadedFile(files[0]);
+  //   }
+  // };
+
+
+  const handleFileSelect = async (event) => {
     const files = event.target.files;
-    // Handle the selected files, e.g., upload or process them.
+setFile(files)
     console.log("Selected files:", files);
+    const formdata=new FormData();
+    // data()
+    console.log(file,"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    formdata.append('file',file[0]?.file)
+      const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST",formdata);
+      console.log(apiResponse,"apiiiiiiiii");
     // Display the first selected file in the upload section
     if (files.length > 0) {
-      setUploadedFile(files[0]);
+      setIsLoading(true); // Start uploading
+      // Simulate file upload process (replace setTimeout with actual upload process)
+      setTimeout(() => {
+        // After successful upload
+        setIsLoading(false); // Uploading done
+        setIsImported(true); // Mark as imported
+      }, 1000); // Replace 2000 with actual upload time
     }
   };
+
+
 
   const handleRemoveFile = () => {
     // Remove the uploaded file
     setUploadedFile(null);
   };
 
-  const handleUploadClick = () => {
+  const handleUploadClick = async (event) => {
     // Trigger the file input click event
+  
     document.getElementById("file-input").click();
+    
   };
 
   const handleFetchDoc = () => {
@@ -123,15 +152,32 @@ const Drag = () => {
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
+            // flexDirection: "column",
             alignItems: "center",
-            gap: "1rem",
+            gap: "2rem",
             marginTop: "10px",
           }}
         >
-          {val.map((image) => (
-        <img key={image.id} src={image} alt={`Im`} />
-      ))}
+          {/* {val.map((image) => (
+        <img key={image.id}
+        src={image}
+        alt={`Im`}
+        // className="deck-image"
+        style={{ width: '90%', height: '120px', borderRadius: "15px"}}
+        />
+      ))} */}
+      {
+        val.map((image) => (
+          <div key={image.id}>
+          <img
+          src={image}
+          alt={`Im`}
+          style={{ width: '90%', height: '120px', borderRadius: "15px"}}
+          /> 
+          <p>{image.title}</p>
+          </div>
+        ))
+      }
           {/* <Link to="/presentation" onClick={handleClick}>
             <img
               src= "https://source.unsplash.com/user/c_v_r/1900x800" 
@@ -144,7 +190,7 @@ const Drag = () => {
               }}
             />
           </Link> */}
-          <h6 style={{ color: "gray" }}>Deck Presentation 01</h6>
+          {/* <h6 style={{ color: "gray" }}>Deck Presentation 01</h6> */}
         </div>
 
         {isModalOpen && (
