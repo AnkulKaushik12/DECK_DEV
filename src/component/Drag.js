@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { apiUrls } from "../utils/apiUrls";
+import { callAPI } from "../utils/apiUtils";
 const Drag = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -9,6 +10,8 @@ const Drag = () => {
   const [selectedDocUrl, setSelectedDocUrl] = useState("");
   const [showDoc, setShowDoc] = useState(false);
   const [inputUrl, setInputUrl] = useState("");
+  const [val, setVal] = useState([]);
+
   const navigate = useNavigate();
 
   const handleOpenModal = () => {
@@ -66,7 +69,14 @@ const Drag = () => {
       }, 2000); // Replace 2000 with actual loading time
     }
   };
-
+  useEffect(()=>{
+    fetchData()
+  },[])
+  async function fetchData(){
+    const apiResponse1 =  await callAPI(apiUrls.GETFILE, {}, "GET");
+    console.log(apiResponse1);
+    setVal(apiResponse1.data)
+  }
   const handleClick = () => {
     // Navigate to the PresentationDetail component
     navigate("/presentation");
@@ -119,9 +129,12 @@ const Drag = () => {
             marginTop: "10px",
           }}
         >
-          <Link to="/presentation" onClick={handleClick}>
+          {val.map((image) => (
+        <img key={image.id} src={image} alt={`Im`} />
+      ))}
+          {/* <Link to="/presentation" onClick={handleClick}>
             <img
-              src={require("../assets/img/deck.jpg")}
+              src= "https://source.unsplash.com/user/c_v_r/1900x800" 
               // src= {../../assets/img/about-us.jpg}
               alt="Deck Presentation 01"
               style={{
@@ -130,7 +143,7 @@ const Drag = () => {
                 borderRadius: "5px", // Adjust the border radius as needed
               }}
             />
-          </Link>
+          </Link> */}
           <h6 style={{ color: "gray" }}>Deck Presentation 01</h6>
         </div>
 

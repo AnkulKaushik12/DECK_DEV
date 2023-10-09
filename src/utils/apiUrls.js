@@ -2,7 +2,7 @@ export const apiUrls = {
 
   
   UPLOADFILE: "/uploadFile",
-  GETFILE:"/list",
+  GETFILE:"/getDeck",
   CONVERT:"/convertToImage"
   
 };

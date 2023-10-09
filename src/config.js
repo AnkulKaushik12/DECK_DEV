@@ -1,3 +1,3 @@
 export const defaultConfig = {
-    baseAPIUrl:"http://localhost:8000",
+    baseAPIUrl:"http://localhost:5001",
 }

@@ -87,7 +87,7 @@ const SidebarLayout = (props) => {
  */}
 
                     <li class="nav-item">
-                      <Link class="nav-link" to="/decks">
+                      <Link class="nav-link" to="/drag">
                         <span class="d-inline-block me-2">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
