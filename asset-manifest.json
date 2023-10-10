@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/DECK_DEV/static/css/main.b3c95433.css",
+    "main.js": "/DECK_DEV/static/js/main.638b6f83.js",
+    "static/js/538.0683430d.chunk.js": "/DECK_DEV/static/js/538.0683430d.chunk.js",
+    "static/css/905.3451be41.chunk.css": "/DECK_DEV/static/css/905.3451be41.chunk.css",
+    "static/js/905.e3c08fba.chunk.js": "/DECK_DEV/static/js/905.e3c08fba.chunk.js",
+    "static/js/843.ae096914.chunk.js": "/DECK_DEV/static/js/843.ae096914.chunk.js",
+    "static/js/17.9a8c18bb.chunk.js": "/DECK_DEV/static/js/17.9a8c18bb.chunk.js",
+    "static/media/register_banner.png": "/DECK_DEV/static/media/register_banner.b8aedfb725652b912a08.png",
+    "static/media/courses-banner.png": "/DECK_DEV/static/media/courses-banner.b035f9757750904f29ae.png",
+    "static/media/icofont.woff": "/DECK_DEV/static/media/icofont.dad3accba068281878f1.woff",
+    "static/media/icofont.woff2": "/DECK_DEV/static/media/icofont.9c33516aab48c61e3081.woff2",
+    "static/media/header-bg.jpg": "/DECK_DEV/static/media/header-bg.e0557e13d5bd36d7ef51.jpg",
+    "static/media/price-plan-bg.jpg": "/DECK_DEV/static/media/price-plan-bg.0154208fe476cc2f50e7.jpg",
+    "static/media/master.png": "/DECK_DEV/static/media/master.73a8a4741546b84c2548.png",
+    "index.html": "/DECK_DEV/index.html",
+    "main.b3c95433.css.map": "/DECK_DEV/static/css/main.b3c95433.css.map",
+    "main.638b6f83.js.map": "/DECK_DEV/static/js/main.638b6f83.js.map",
+    "538.0683430d.chunk.js.map": "/DECK_DEV/static/js/538.0683430d.chunk.js.map",
+    "905.3451be41.chunk.css.map": "/DECK_DEV/static/css/905.3451be41.chunk.css.map",
+    "905.e3c08fba.chunk.js.map": "/DECK_DEV/static/js/905.e3c08fba.chunk.js.map",
+    "843.ae096914.chunk.js.map": "/DECK_DEV/static/js/843.ae096914.chunk.js.map",
+    "17.9a8c18bb.chunk.js.map": "/DECK_DEV/static/js/17.9a8c18bb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3c95433.css",
+    "static/js/main.638b6f83.js"
+  ]
+}
