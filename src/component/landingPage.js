@@ -8,24 +8,45 @@ const LandingPage = () => {
 
   const handler = (event) => {
     if (event.code === "Enter") {
+      const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
       console.log(event);
 
-      setEmail(event.target.value);
-      // alert("Email entered")
-      toast.success(" Email entered!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    } else {
-      //    setPass('qwerty');/
-    }
-  };
+      if (emailRegex.test(email)) {
+           // Email is valid
+           setEmail(event.target.value);
+           toast.success("Thank you for Contacting us!", {
+             position: "top-center",
+             autoClose: 5000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+             theme: "colored",
+           });
+         } else {
+           // Email is invalid
+           toast.error("Please enter a valid email address.", {
+             position: "top-center",
+             autoClose: 5000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+             theme: "colored",
+           });
+         }
+       } else {
+         // setPass('qwerty');
+       }
+      //  console.log("Email entered:", email)
+      }
+
+      const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+      };
+
 
   return (
     <div className="landing">
@@ -60,7 +81,8 @@ const LandingPage = () => {
             <input
               type="email"
               placeholder="you@email.com"
-              // value={email}
+              value={email}
+              onChange={handleEmailChange}
               onKeyDown={handler}
               required
             />
