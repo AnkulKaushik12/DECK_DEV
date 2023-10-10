@@ -1,7 +1,11 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { apiUrls } from "../utils/apiUrls";
 import { callAPI } from "../utils/apiUtils";
+import "react-dropzone-uploader/dist/styles.css";
+import Dropzone from "react-dropzone-uploader";
 // import './Drag.scss'
 const Drag = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,10 +20,55 @@ const Drag = () => {
 
   const navigate = useNavigate();
 
+  // specify upload params and url for your files
+  const getUploadParams = ({ meta }) => {
+    return { url: "https://httpbin.org/post" };
+  };
+
+    // called every time a file's `status` changes
+    const handleChangeStatus = ({ meta, file }, status) => {
+      console.log(status, meta, file);
+    };
+   
+    const handleSubmit = async (files) => {
+      const formdata=new FormData();
+      // data()
+      formdata.append('file',files[0].file)
+        const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST",formdata);
+        console.log(apiResponse,"apiiiiiiiii");
+        if(apiResponse.status === 200){
+  // let info=apiResponse.data.split(" ");
+              toast.success(apiResponse.data.message+" "  , {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                  });
+        }else{
+          
+              toast.error(apiResponse.data, {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,  
+                  progress: undefined,
+                  theme: "colored",
+                  });
+        }
+        console.log(apiResponse);
+  
+    };
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
-
+  
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setIsLoading(false); // Reset loading state
@@ -48,18 +97,25 @@ const Drag = () => {
   //   }
   // };
 
-
   const handleFileSelect = async (event) => {
     const files = event.target.files;
-// setFile(files)
+
     console.log("Selected files:", files);
-    const formdata=new FormData();
+    const formdata = new FormData();
     // data()
-    console.log(event.target.files,"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    formdata.append('file',files[0]?.File)
-      const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST",formdata);
-      console.log(apiResponse,"apiiiiiiiii");
-    // // Display the first selected file in the upload section
+// <<<<<<< HEAD
+//     console.log(event.target.files,"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+//     formdata.append('file',files[0]?.File)
+//       const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST",formdata);
+//       console.log(apiResponse,"apiiiiiiiii");
+//     // // Display the first selected file in the upload section
+// =======
+    console.log(file, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    formdata.append("file", file[0]?.file);
+    const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST", formdata);
+    console.log(apiResponse, "apiiiiiiiii");
+    // Display the first selected file in the upload section
+// >>>>>>> 27e01517eb62402a270f1fbc5081871e90970561
     if (files.length > 0) {
       setIsLoading(true); // Start uploading
       // Simulate file upload process (replace setTimeout with actual upload process)
@@ -71,8 +127,6 @@ const Drag = () => {
     }
   };
 
-
-
   const handleRemoveFile = () => {
     // Remove the uploaded file
     setUploadedFile(null);
@@ -80,9 +134,8 @@ const Drag = () => {
 
   const handleUploadClick = async (event) => {
     // Trigger the file input click event
-  
+
     document.getElementById("file-input").click();
-    
   };
 
   const handleFetchDoc = () => {
@@ -98,13 +151,13 @@ const Drag = () => {
       }, 2000); // Replace 2000 with actual loading time
     }
   };
-  useEffect(()=>{
-    fetchData()
-  },[])
-  async function fetchData(){
-    const apiResponse1 =  await callAPI(apiUrls.GETFILE, {}, "GET");
+  useEffect(() => {
+    fetchData();
+  }, []);
+  async function fetchData() {
+    const apiResponse1 = await callAPI(apiUrls.GETFILE, {}, "GET");
     console.log(apiResponse1);
-    setVal(apiResponse1.data)
+    setVal(apiResponse1.data);
   }
   const handleClick = () => {
     // Navigate to the PresentationDetail component
@@ -163,6 +216,7 @@ console.log("sssss");
         style={{ width: '90%', height: '120px', borderRadius: "15px"}}
         />
       ))} */}
+
       {
         val.map((image,i) => (
           <div 
@@ -176,6 +230,7 @@ console.log("sssss");
           </div>
         ))
       }
+
           {/* <Link to="/presentation" onClick={handleClick}>
             <img
               src= "https://source.unsplash.com/user/c_v_r/1900x800" 
@@ -189,7 +244,7 @@ console.log("sssss");
             />
           </Link> */}
           {/* <h6 style={{ color: "gray" }}>Deck Presentation 01</h6> */}
-        </div>
+        // </div>
 
         {isModalOpen && (
           <div
@@ -202,8 +257,10 @@ console.log("sssss");
               boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.2)",
               padding: "16px",
               borderRadius: "10px",
-              width: "520px",
-              height: "400px",
+              // width: "520px",
+              width: "40%",
+              // height: "400px",
+              minHeight: "70vh"
             }}
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()} // Prevent default to allow drop
@@ -238,54 +295,43 @@ console.log("sssss");
                 justifyContent: "center",
               }}
             >
-              {uploadedFile ? (
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <button
-                    style={{
-                      border: "1px solid #000",
-                      padding: "12px",
-                      textAlign: "center",
-                    }}
-                  >
-                    {uploadedFile.name}
-                  </button>
-                  <button
-                    style={{
-                      border: "1px solid #000",
-                      padding: "12px",
-                      textAlign: "center",
-                      marginLeft: "8px",
-                    }}
-                    onClick={handleRemoveFile}
-                  >
-                    X
-                  </button>
-                </div>
-              ) : (
-                <button
-                  style={{
-                    border: "1px solid #000",
-                    // backgroundColor: "white",
-                    color: "black",
-                    borderRadius: "5px",
-                    color: "black",
-                    padding: "12px",
-                    textAlign: "center",
-                  }}
-                  onClick={handleUploadClick}
-                >
-                  Upload
-                </button>
-              )}
-              {/* Hidden file input */}
-              <input
-                type="file"
-                accept=".pdf, .ppt, .pptx"
-                style={{ display: "none" }}
-                id="file-input"
-                onChange={handleFileSelect}
-              />
-            </div>
+<div
+          className="imageContainer"
+        
+        >
+          {/* {val.map((image) => (
+        <img key={image.id}
+        src={image}
+        alt={`Im`}
+        // className="deck-image"
+        style={{ width: '90%', height: '120px', borderRadius: "15px"}}
+        />
+      ))} */}
+      
+          {/* <Link to="/presentation" onClick={handleClick}>
+            <img
+              src= "https://source.unsplash.com/user/c_v_r/1900x800" 
+              // src= {../../assets/img/about-us.jpg}
+              alt="Deck Presentation 01"
+              style={{
+                width: "100% ", // Adjust the width of the image as needed
+                height: "100px", // Adjust the height of the image as needed
+                borderRadius: "5px", // Adjust the border radius as needed
+              }}
+            />
+          </Link> */}
+          {/* <h6 style={{ color: "gray" }}>Deck Presentation 01</h6> */}
+        </div>
+
+    <Dropzone
+      getUploadParams={getUploadParams}
+      onChangeStatus={handleChangeStatus}
+      onSubmit={handleSubmit}
+     accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.google-apps.presentation"
+    />
+</div>
+        
+
             <div
               style={{
                 marginTop: "1rem",
@@ -472,9 +518,9 @@ console.log("sssss");
             </div>
           </div>
         )}
-      </div>
+       </div>
     </>
-  );
+  )
 };
 
 export default Drag;
