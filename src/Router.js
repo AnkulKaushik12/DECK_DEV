@@ -5,6 +5,7 @@ import BaseLayout from "./layout/BaseLayout/BaseLayout/Layout";
 import SidebarLayout from "./layout/BaseLayout/SideBarLayout/index";
 import login from "./component/login";
 import presentation from "./component/presentation";
+import landingPage from "./component/landingPage";
 // import SidebarLayout from './layouts/SidebarLayout'
 // import SidebarLayoutTeacher from './layouts/sidebarLayoutsTeacher'
 
@@ -51,19 +52,19 @@ const routes = () => {
       path: "/login",
       element: lazy(() => import("./component/login")),
     },
+    // {
+    //   // layout: SidebarLayout,
+    //   // guard: Guest,
+    //   exact: true,
+    //   path: "/",
+    //   element: lazy(() => import("./component/login")),
+    // },
     {
       // layout: SidebarLayout,
       // guard: Guest,
       exact: true,
       path: "/",
-      element: lazy(() => import("./component/login")),
-    },
-    {
-      layout: SidebarLayout,
-      // guard: Guest,
-      exact: true,
-      path: "/ppt",
-      element: lazy(() => import("./component/Reactppt")),
+      element: lazy(() => import("./component/landingPage")),
     },
     {
       layout: BaseLayout,
