@@ -51,15 +51,15 @@ const Drag = () => {
 
   const handleFileSelect = async (event) => {
     const files = event.target.files;
-setFile(files)
+// setFile(files)
     console.log("Selected files:", files);
     const formdata=new FormData();
     // data()
-    console.log(file,"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    formdata.append('file',file[0]?.file)
+    console.log(event.target.files,"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    formdata.append('file',files[0]?.File)
       const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST",formdata);
       console.log(apiResponse,"apiiiiiiiii");
-    // Display the first selected file in the upload section
+    // // Display the first selected file in the upload section
     if (files.length > 0) {
       setIsLoading(true); // Start uploading
       // Simulate file upload process (replace setTimeout with actual upload process)
@@ -110,7 +110,9 @@ setFile(files)
     // Navigate to the PresentationDetail component
     navigate("/presentation");
   };
-
+const handlePresentation=()=>{
+console.log("sssss");
+}
   return (
     <>
       <div className="container">
@@ -150,13 +152,8 @@ setFile(files)
           </div>
         </div>
         <div
-          style={{
-            display: "flex",
-            // flexDirection: "column",
-            alignItems: "center",
-            gap: "2rem",
-            marginTop: "10px",
-          }}
+          className="imageContainer"
+        
         >
           {/* {val.map((image) => (
         <img key={image.id}
@@ -167,14 +164,15 @@ setFile(files)
         />
       ))} */}
       {
-        val.map((image) => (
-          <div key={image.id}>
+        val.map((image,i) => (
+          <div 
+           key={image.id}>
           <img
+          onClick={handlePresentation()}
           src={image}
           alt={`Im`}
-          style={{ width: '90%', height: '120px', borderRadius: "15px"}}
           /> 
-          <p>{image.title}</p>
+          <p>{i+1}</p>
           </div>
         ))
       }

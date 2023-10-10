@@ -7,7 +7,21 @@
 .App {
   text-align: center;
 }
-
+.imageContainer{
+    display: flex;
+    max-width: 400px;
+    max-height: 300px;
+    gap: "2rem";
+  
+}
+.imageContainer img{
+  max-width: 400px;
+    max-height: 300px;
+}
+.imageContainer p{
+  color: black;
+  text-align: center;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
