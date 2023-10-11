@@ -12,6 +12,7 @@ const LandingPage = () => {
       // console.log(event);
       // C:\Users\ankur\Downloads\newdeck$oct\src\component
       if (emailRegex.test(email)) {
+
            // Email is valid
            setEmail("");
            toast.success("Thank you for Contacting us!", {
@@ -44,10 +45,11 @@ const LandingPage = () => {
       //  console.log("Email entered:", email)
       }
 
-      const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-      };
+      
 
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
   return (
     <div className="landing">

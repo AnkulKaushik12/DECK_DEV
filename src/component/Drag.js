@@ -159,13 +159,23 @@ const Drag = () => {
     console.log(apiResponse1);
     setVal(apiResponse1.data);
   }
-  const handleClick = () => {
-    // Navigate to the PresentationDetail component
-    navigate("/presentation");
-  };
-const handlePresentation=()=>{
-console.log("sssss");
-}
+// <<<<<<< HEAD
+//   const handleClick = () => {
+//     // Navigate to the PresentationDetail component
+//     navigate("/presentation");
+//   };
+// const handlePresentation=()=>{
+// console.log("sssss");
+// }
+// =======
+
+  // function handleImage(image){
+// console.log(value)
+// const handleImageClick = (value) => {
+//   console.log(value)
+// }
+  // }
+
   return (
     <>
       <div className="container">
@@ -216,6 +226,7 @@ console.log("sssss");
         style={{ width: '90%', height: '120px', borderRadius: "15px"}}
         />
       ))} */}
+{/* <<<<<<< HEAD
 
       {
         val.map((image,i) => (
@@ -231,6 +242,23 @@ console.log("sssss");
         ))
       }
 
+======= */}
+      <Link to={`/presentation/${deckId}`}> 
+          {val.map((image,i) => (
+            <div key={image.id}>
+              <img
+                src={image}
+                name="image"
+                alt={`Im`}
+                // value={i+1}
+                // onClick={handleImageClick(image.value)}
+                style={{ width: "90%", height: "120px", borderRadius: "15px" }}
+              />
+              <p>{i+1}</p>
+            </div>
+          ))}
+          </Link>
+{/* >>>>>>> e41d2654d9a1617d0c56fe8912ecbe85431794d8 */}
           {/* <Link to="/presentation" onClick={handleClick}>
             <img
               src= "https://source.unsplash.com/user/c_v_r/1900x800" 
@@ -328,7 +356,8 @@ console.log("sssss");
       onChangeStatus={handleChangeStatus}
       onSubmit={handleSubmit}
      accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.google-apps.presentation"
-    />
+    >
+      </Dropzone>
 </div>
         
 
