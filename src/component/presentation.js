@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import "./presentation.scss";
 
 function Custom() {
-  const imgs = [
-    { id: 0, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-    { id: 1, value: "https://source.unsplash.com/user/c_v_r/100x100" },
-    { id: 2, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-    { id: 3, value: "https://source.unsplash.com/user/c_v_r/100x100" },
-    { id: 4, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-    { id: 5, value: "https://source.unsplash.com/user/c_v_r/100x100" },
-    { id: 6, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-    { id: 7, value: "https://source.unsplash.com/user/c_v_r/100x100" },
-    { id: 8, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-  ];
+
+// const location = useLocation();
+const data = useParams();
+console.log(data);
+let userId = 1;
+let deckId = 2;
+
+let imgs=[]
+for(var i=0; i<5; i++){
+imgs.push({id:{i},value:`http://localhost:5001/uploads/${userId}/${deckId}/--${i}.jpg`})
+}
+
 
   const [wordData, setWordData] = useState(imgs[0]);
   const [val, setVal] = useState(0);

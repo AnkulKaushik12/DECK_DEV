@@ -12,41 +12,40 @@ const LandingPage = () => {
       console.log(event);
 
       if (emailRegex.test(email)) {
-           // Email is valid
-           setEmail(event.target.value);
-           toast.success("Thank you for Contacting us!", {
-             position: "top-center",
-             autoClose: 5000,
-             hideProgressBar: false,
-             closeOnClick: true,
-             pauseOnHover: true,
-             draggable: true,
-             progress: undefined,
-             theme: "colored",
-           });
-         } else {
-           // Email is invalid
-           toast.error("Please enter a valid email address.", {
-             position: "top-center",
-             autoClose: 5000,
-             hideProgressBar: false,
-             closeOnClick: true,
-             pauseOnHover: true,
-             draggable: true,
-             progress: undefined,
-             theme: "colored",
-           });
-         }
-       } else {
-         // setPass('qwerty');
-       }
-      //  console.log("Email entered:", email)
-      }
-
-      const handleEmailChange = (event) => {
+        // Email is valid
         setEmail(event.target.value);
-      };
+        toast.success("Thank you for Contacting us!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        // Email is invalid
+        toast.error("Please enter a valid email address.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } else {
+      // setPass('qwerty');
+    }
+    //  console.log("Email entered:", email)
+  };
 
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
   return (
     <div className="landing">

@@ -151,11 +151,13 @@ const Drag = () => {
     console.log(apiResponse1);
     setVal(apiResponse1.data);
   }
-  const handleClick = () => {
-    // Navigate to the PresentationDetail component
-    navigate("/presentation");
-  };
 
+  // function handleImage(image){
+// console.log(value)
+// const handleImageClick = (value) => {
+//   console.log(value)
+// }
+  // }
   return (
     <>
       <div className="container">
@@ -211,16 +213,21 @@ const Drag = () => {
         style={{ width: '90%', height: '120px', borderRadius: "15px"}}
         />
       ))} */}
-          {val.map((image) => (
+      <Link to={`/presentation/${deckId}`}> 
+          {val.map((image,i) => (
             <div key={image.id}>
               <img
                 src={image}
+                name="image"
                 alt={`Im`}
+                // value={i+1}
+                // onClick={handleImageClick(image.value)}
                 style={{ width: "90%", height: "120px", borderRadius: "15px" }}
               />
-              <p>{image.title}</p>
+              <p>{i+1}</p>
             </div>
           ))}
+          </Link>
           {/* <Link to="/presentation" onClick={handleClick}>
             <img
               src= "https://source.unsplash.com/user/c_v_r/1900x800" 
@@ -318,7 +325,8 @@ const Drag = () => {
       onChangeStatus={handleChangeStatus}
       onSubmit={handleSubmit}
      accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.google-apps.presentation"
-    />
+    >
+      </Dropzone>
 </div>
         
 
