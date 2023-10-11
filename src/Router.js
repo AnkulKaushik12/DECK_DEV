@@ -49,7 +49,7 @@ const routes = () => {
       layout: BaseLayout,
       // guard: Guest,
       exact: true,
-      path: "/login",
+      path: "/",
       element: lazy(() => import("./component/login")),
     },
     // {
@@ -59,13 +59,13 @@ const routes = () => {
     //   path: "/",
     //   element: lazy(() => import("./component/login")),
     // },
-    {
-      // layout: SidebarLayout,
-      // guard: Guest,
-      exact: true,
-      path: "/",
-      element: lazy(() => import("./component/landingPage")),
-    },
+    // {
+    //   // layout: SidebarLayout,
+    //   // guard: Guest,
+    //   exact: true,
+    //   path: "/",
+    //   element: lazy(() => import("./component/landingPage")),
+    // },
     {
       layout: BaseLayout,
       // guard: Guest,

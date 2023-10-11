@@ -9,32 +9,33 @@ const LandingPage = () => {
   const handler = (event) => {
     if (event.code === "Enter") {
       const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-      console.log(event);
-
+      // console.log(event);
+      // C:\Users\ankur\Downloads\newdeck$oct\src\component
       if (emailRegex.test(email)) {
            // Email is valid
-           setEmail(event.target.value);
+           setEmail("");
            toast.success("Thank you for Contacting us!", {
              position: "top-center",
-             autoClose: 5000,
+             autoClose: 1000,
              hideProgressBar: false,
              closeOnClick: true,
              pauseOnHover: true,
              draggable: true,
              progress: undefined,
-             theme: "colored",
+             theme: "dark",
            });
+           
          } else {
            // Email is invalid
            toast.error("Please enter a valid email address.", {
              position: "top-center",
-             autoClose: 5000,
+             autoClose: 1000,
              hideProgressBar: false,
              closeOnClick: true,
              pauseOnHover: true,
              draggable: true,
              progress: undefined,
-             theme: "colored",
+             theme: "dark ",
            });
          }
        } else {
