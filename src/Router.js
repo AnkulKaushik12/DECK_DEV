@@ -45,15 +45,8 @@ export function RenderRout() {
 
 const routes = () => {
   return [
-    {
-      layout: BaseLayout,
-      // guard: Guest,
-      exact: true,
-      path: "/",
-      element: lazy(() => import("./component/login")),
-    },
     // {
-    //   // layout: SidebarLayout,
+    //   layout: BaseLayout,
     //   // guard: Guest,
     //   exact: true,
     //   path: "/",
@@ -64,8 +57,15 @@ const routes = () => {
     //   // guard: Guest,
     //   exact: true,
     //   path: "/",
-    //   element: lazy(() => import("./component/landingPage")),
+    //   element: lazy(() => import("./component/login")),
     // },
+    {
+      // layout: SidebarLayout,
+      // guard: Guest,
+      exact: true,
+      path: "/",
+      element: lazy(() => import("./component/landingPage")),
+    },
     {
       layout: BaseLayout,
       // guard: Guest,

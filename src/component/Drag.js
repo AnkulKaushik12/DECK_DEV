@@ -33,7 +33,9 @@ const Drag = () => {
     const handleSubmit = async (files) => {
       const formdata=new FormData();
       // data()
-      formdata.append('file',files[0].file)
+      formdata.append('file',files[0].file);
+      formdata.append("userId",localStorage.getItem("userId"))
+      console.log(formdata);
         const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST",formdata);
         console.log(apiResponse,"apiiiiiiiii");
         if(apiResponse.status === 200){
@@ -178,6 +180,18 @@ const Drag = () => {
 
   return (
     <>
+    <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
       <div className="container">
         <div
           className="drag-container"
@@ -243,7 +257,7 @@ const Drag = () => {
       }
 
 ======= */}
-      <Link to={`/presentation/${deckId}`}> 
+      <Link to={`/presentation/${1}`} className="linky"> 
           {val.map((image,i) => (
             <div key={image.id}>
               <img
@@ -252,7 +266,7 @@ const Drag = () => {
                 alt={`Im`}
                 // value={i+1}
                 // onClick={handleImageClick(image.value)}
-                style={{ width: "90%", height: "120px", borderRadius: "15px" }}
+                // style={{ width: "90%", height: "120px", borderRadius: "15px" }}
               />
               <p>{i+1}</p>
             </div>
@@ -352,9 +366,9 @@ const Drag = () => {
         </div>
 
     <Dropzone
-      getUploadParams={getUploadParams}
-      onChangeStatus={handleChangeStatus}
-      onSubmit={handleSubmit}
+       getUploadParams={getUploadParams}
+       onChangeStatus={handleChangeStatus}
+       onSubmit={handleSubmit}
      accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.google-apps.presentation"
     >
       </Dropzone>
