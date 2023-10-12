@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import "./presentation.scss";
 
 function Custom() {
 
 // const location = useLocation();
-const data = useParams();
-console.log(data);
+// const data = useParams();
+// console.log(data);
 let userId = 1;
 let deckId = 2;
 

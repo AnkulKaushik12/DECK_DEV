@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { apiUrls } from "../utils/apiUrls";
 import { callAPI } from "../utils/apiUtils";
 import "react-dropzone-uploader/dist/styles.css";
@@ -25,50 +25,48 @@ const Drag = () => {
     return { url: "https://httpbin.org/post" };
   };
 
-    // called every time a file's `status` changes
-    const handleChangeStatus = ({ meta, file }, status) => {
-      console.log(status, meta, file);
-    };
-   
-    const handleSubmit = async (files) => {
-      const formdata=new FormData();
-      // data()
-      formdata.append('file',files[0].file)
-        const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST",formdata);
-        console.log(apiResponse,"apiiiiiiiii");
-        if(apiResponse.status === 200){
-  // let info=apiResponse.data.split(" ");
-              toast.success(apiResponse.data.message+" "  , {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "colored",
-                  });
-        }else{
-          
-              toast.error(apiResponse.data, {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,  
-                  progress: undefined,
-                  theme: "colored",
-                  });
-        }
-        console.log(apiResponse);
-  
-    };
+  // called every time a file's `status` changes
+  const handleChangeStatus = ({ meta, file }, status) => {
+    console.log(status, meta, file);
+  };
+
+  const handleSubmit = async (files) => {
+    const formdata = new FormData();
+    // data()
+    formdata.append("file", files[0].file);
+    const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST", formdata);
+    console.log(apiResponse, "apiiiiiiiii");
+    if (apiResponse.status === 200) {
+      // let info=apiResponse.data.split(" ");
+      toast.success(apiResponse.data.message + " ", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      toast.error(apiResponse.data, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+    console.log(apiResponse);
+  };
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
-  
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setIsLoading(false); // Reset loading state
@@ -143,6 +141,7 @@ const Drag = () => {
       }, 2000); // Replace 2000 with actual loading time
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -153,10 +152,10 @@ const Drag = () => {
   }
 
   // function handleImage(image){
-// console.log(value)
-// const handleImageClick = (value) => {
-//   console.log(value)
-// }
+  // console.log(value)
+  // const handleImageClick = (value) => {
+  //   console.log(value)
+  // }
   // }
   return (
     <>
@@ -199,48 +198,30 @@ const Drag = () => {
         <div
           style={{
             display: "flex",
-            // flexDirection: "column",
-            alignItems: "center",
+            flexDirection: "row",
             gap: "2rem",
             marginTop: "10px",
           }}
         >
-          {/* {val.map((image) => (
-        <img key={image.id}
-        src={image}
-        alt={`Im`}
-        // className="deck-image"
-        style={{ width: '90%', height: '120px', borderRadius: "15px"}}
-        />
-      ))} */}
-      <Link to={`/presentation/${deckId}`}> 
-          {val.map((image,i) => (
-            <div key={image.id}>
-              <img
-                src={image}
-                name="image"
-                alt={`Im`}
-                // value={i+1}
-                // onClick={handleImageClick(image.value)}
-                style={{ width: "90%", height: "120px", borderRadius: "15px" }}
-              />
-              <p>{i+1}</p>
-            </div>
-          ))}
+          <Link to="/presentation">
+            {val.map((image, i) => (
+              <div key={image.id}>
+                <img
+                  src={image}
+                  name="image"
+                  alt={`Im`}
+                  // value={i+1}
+                  // onClick={handleImageClick(image.value)}
+                  style={{
+                    width: "90%",
+                    height: "120px",
+                    borderRadius: "15px",
+                  }}
+                />
+                <p>{i + 1}</p>
+              </div>
+            ))}
           </Link>
-          {/* <Link to="/presentation" onClick={handleClick}>
-            <img
-              src= "https://source.unsplash.com/user/c_v_r/1900x800" 
-              // src= {../../assets/img/about-us.jpg}
-              alt="Deck Presentation 01"
-              style={{
-                width: "100% ", // Adjust the width of the image as needed
-                height: "100px", // Adjust the height of the image as needed
-                borderRadius: "5px", // Adjust the border radius as needed
-              }}
-            />
-          </Link> */}
-          {/* <h6 style={{ color: "gray" }}>Deck Presentation 01</h6> */}
         </div>
 
         {isModalOpen && (
@@ -257,7 +238,7 @@ const Drag = () => {
               // width: "520px",
               width: "40%",
               // height: "400px",
-              minHeight: "70vh"
+              minHeight: "70vh",
             }}
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()} // Prevent default to allow drop
@@ -292,11 +273,8 @@ const Drag = () => {
                 justifyContent: "center",
               }}
             >
-<div
-          className="imageContainer"
-        
-        >
-          {/* {val.map((image) => (
+              <div className="imageContainer">
+                {/* {val.map((image) => (
         <img key={image.id}
         src={image}
         alt={`Im`}
@@ -304,8 +282,8 @@ const Drag = () => {
         style={{ width: '90%', height: '120px', borderRadius: "15px"}}
         />
       ))} */}
-      
-          {/* <Link to="/presentation" onClick={handleClick}>
+
+                {/* <Link to="/presentation" onClick={handleClick}>
             <img
               src= "https://source.unsplash.com/user/c_v_r/1900x800" 
               // src= {../../assets/img/about-us.jpg}
@@ -317,18 +295,16 @@ const Drag = () => {
               }}
             />
           </Link> */}
-          {/* <h6 style={{ color: "gray" }}>Deck Presentation 01</h6> */}
-        </div>
+                {/* <h6 style={{ color: "gray" }}>Deck Presentation 01</h6> */}
+              </div>
 
-    <Dropzone
-      getUploadParams={getUploadParams}
-      onChangeStatus={handleChangeStatus}
-      onSubmit={handleSubmit}
-     accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.google-apps.presentation"
-    >
-      </Dropzone>
-</div>
-        
+              <Dropzone
+                getUploadParams={getUploadParams}
+                onChangeStatus={handleChangeStatus}
+                onSubmit={handleSubmit}
+                accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.google-apps.presentation"
+              ></Dropzone>
+            </div>
 
             <div
               style={{
