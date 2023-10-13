@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
+import LoadingModal from "./loadingModel";
+import ImportedModal from "./importedModel";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { apiUrls } from "../utils/apiUrls";
 import { callAPI } from "../utils/apiUtils";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
-// import './Drag.scss'
+import "./Drag.scss";
 const Drag = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,52 +27,56 @@ const Drag = () => {
     return { url: "https://httpbin.org/post" };
   };
 
-    // called every time a file's `status` changes
-    const handleChangeStatus = ({ meta, file }, status) => {
-      console.log(status, meta, file);
-    };
-   
-    const handleSubmit = async (files) => {
-      const formdata=new FormData();
-      // data()
-      formdata.append('file',files[0].file);
-      formdata.append("userId",localStorage.getItem("userId"))
-      console.log(formdata);
-        const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST",formdata);
-        console.log(apiResponse,"apiiiiiiiii");
-        if(apiResponse.status === 200){
-  // let info=apiResponse.data.split(" ");
-              toast.success(apiResponse.data.message+" "  , {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "colored",
-                  });
-        }else{
-          
-              toast.error(apiResponse.data, {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,  
-                  progress: undefined,
-                  theme: "colored",
-                  });
-        }
-        console.log(apiResponse);
-  
-    };
+  // called every time a file's `status` changes
+  const handleChangeStatus = ({ meta, file }, status) => {
+    if (status === "done") {
+      // File upload is done
+      setIsLoading(false); // Stop loading
+      setIsImported(true); // Mark as imported
+    } else if (status === "uploading") {
+      // File upload is in progress
+      setIsLoading(true); // Start loading
+    }
+    console.log(status, meta, file);
+  };
+
+  const handleSubmit = async (files) => {
+    const formdata = new FormData();
+    // data()
+    formdata.append("file", files[0].file);
+    const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST", formdata);
+    console.log(apiResponse, "apiiiiiiiii");
+    if (apiResponse.status === 200) {
+      // let info=apiResponse.data.split(" ");
+      toast.success(apiResponse.data.message + " ", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      toast.error(apiResponse.data, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+    console.log(apiResponse);
+  };
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
-  
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setIsLoading(false); // Reset loading state
@@ -89,35 +95,17 @@ const Drag = () => {
     }
   };
 
-  // const handleFileSelect = (event) => {
-  //   const files = event.target.files;
-  //   // Handle the selected files, e.g., upload or process them.
-  //   console.log("Selected files:", files);
-  //   // Display the first selected file in the upload section
-  //   if (files.length > 0) {
-  //     setUploadedFile(files[0]);
-  //   }
-  // };
-
   const handleFileSelect = async (event) => {
     const files = event.target.files;
-
+    setFile(files);
     console.log("Selected files:", files);
     const formdata = new FormData();
     // data()
-// <<<<<<< HEAD
-//     console.log(event.target.files,"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-//     formdata.append('file',files[0]?.File)
-//       const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST",formdata);
-//       console.log(apiResponse,"apiiiiiiiii");
-//     // // Display the first selected file in the upload section
-// =======
     console.log(file, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     formdata.append("file", file[0]?.file);
     const apiResponse = await callAPI(apiUrls.CONVERT, {}, "POST", formdata);
     console.log(apiResponse, "apiiiiiiiii");
     // Display the first selected file in the upload section
-// >>>>>>> 27e01517eb62402a270f1fbc5081871e90970561
     if (files.length > 0) {
       setIsLoading(true); // Start uploading
       // Simulate file upload process (replace setTimeout with actual upload process)
@@ -161,409 +149,101 @@ const Drag = () => {
     console.log(apiResponse1);
     setVal(apiResponse1.data);
   }
-// <<<<<<< HEAD
-//   const handleClick = () => {
-//     // Navigate to the PresentationDetail component
-//     navigate("/presentation");
-//   };
-// const handlePresentation=()=>{
-// console.log("sssss");
-// }
-// =======
-
-  // function handleImage(image){
-// console.log(value)
-// const handleImageClick = (value) => {
-//   console.log(value)
-// }
-  // }
-
   return (
     <>
-    <ToastContainer
-position="top-center"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
       <div className="container">
-        <div
-          className="drag-container"
-          style={{
-            display: "flex",
-            gap: "20px",
-          }}
-        >
+        <div className="drag-container">
           <div>
-            <h2
-              style={{
-                color: "black",
-              }}
-            >
-              Decks
-            </h2>
+            <h2>Decks</h2>
           </div>
-          <div>
-            <button
-              onClick={handleOpenModal}
-              style={{
-                border: "1px dotted #000",
-                borderRadius: "8px",
-                padding: "1px",
-                textAlign: "center",
-                width: "5.9rem",
-                height: "2.5rem",
-                textAlign: "center",
-                backgroundColor: "black",
-                color: "white",
-              }}
-            >
+          <div className="deck-add-new">
+            <button onClick={handleOpenModal}>
               <h6>Add New</h6>
             </button>
           </div>
         </div>
-        <div
-          className="imageContainer"
-        
-        >
-          {/* {val.map((image) => (
-        <img key={image.id}
-        src={image}
-        alt={`Im`}
-        // className="deck-image"
-        style={{ width: '90%', height: '120px', borderRadius: "15px"}}
-        />
-      ))} */}
-{/* <<<<<<< HEAD
-
-      {
-        val.map((image,i) => (
-          <div 
-           key={image.id}>
-          <img
-          onClick={handlePresentation()}
-          src={image}
-          alt={`Im`}
-          /> 
-          <p>{i+1}</p>
-          </div>
-        ))
-      }
-
-======= */}
-      <Link to={`/presentation/${1}`} className="linky"> 
-          {val.map((image,i) => (
-            <div key={image.id}>
-              <img
-                src={image}
-                name="image"
-                alt={`Im`}
-                // value={i+1}
-                // onClick={handleImageClick(image.value)}
-                // style={{ width: "90%", height: "120px", borderRadius: "15px" }}
-              />
-              <p>{i+1}</p>
-            </div>
-          ))}
+        <div className="deck-area">
+        <Link to={`/presentation/${1}`} className="linky">
+            {val.map((image, i) => (
+              <div key={image.id}>
+                <img
+                  src={image}
+                  name="image"
+                  alt={`Im`}
+                  // value={i+1}
+                  // onClick={handleImageClick(image.value)}
+                  style={{
+                    width: "90%",
+                    height: "120px",
+                    borderRadius: "15px",
+                  }}
+                />
+                <p>{i + 1}</p>
+              </div>
+            ))}
           </Link>
-{/* >>>>>>> e41d2654d9a1617d0c56fe8912ecbe85431794d8 */}
-          {/* <Link to="/presentation" onClick={handleClick}>
-            <img
-              src= "https://source.unsplash.com/user/c_v_r/1900x800" 
-              // src= {../../assets/img/about-us.jpg}
-              alt="Deck Presentation 01"
-              style={{
-                width: "100% ", // Adjust the width of the image as needed
-                height: "100px", // Adjust the height of the image as needed
-                borderRadius: "5px", // Adjust the border radius as needed
-              }}
-            />
-          </Link> */}
-          {/* <h6 style={{ color: "gray" }}>Deck Presentation 01</h6> */}
-        // </div>
+        </div>
 
         {isModalOpen && (
           <div
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "white",
-              boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.2)",
-              padding: "16px",
-              borderRadius: "10px",
-              // width: "520px",
-              width: "40%",
-              // height: "400px",
-              minHeight: "70vh"
-            }}
+            className="deck-model"
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()} // Prevent default to allow drop
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <span style={{ color: "black" }}>Add New Deck</span>
-              <button
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "12px",
-                  height: "1rem",
-                  borderRadius: "5px",
-                  backgroundColor: "black",
-                  color: "white",
-                }}
-                onClick={handleCloseModal}
+            <div className="model-top">
+              <div className="top-left">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="30"
+                fill="black"
+                class="bi bi-easel"
+                viewBox="0 0 16 16"
               >
-                X
-              </button>
+                <path d="M8 0a.5.5 0 0 1 .473.337L9.046 2H14a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1.85l1.323 3.837a.5.5 0 1 1-.946.326L11.092 11H8.5v3a.5.5 0 0 1-1 0v-3H4.908l-1.435 4.163a.5.5 0 1 1-.946-.326L3.85 11H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h4.954L7.527.337A.5.5 0 0 1 8 0zM2 3v7h12V3H2z" />
+              </svg>
+              <span>Add New Deck</span>
+              </div>
+              <p onClick={handleCloseModal}>X</p>
             </div>
-            <div
-              style={{
-                marginTop: "2rem",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-<div
-          className="imageContainer"
-        
-        >
-          {/* {val.map((image) => (
-        <img key={image.id}
-        src={image}
-        alt={`Im`}
-        // className="deck-image"
-        style={{ width: '90%', height: '120px', borderRadius: "15px"}}
-        />
-      ))} */}
-      
-          {/* <Link to="/presentation" onClick={handleClick}>
-            <img
-              src= "https://source.unsplash.com/user/c_v_r/1900x800" 
-              // src= {../../assets/img/about-us.jpg}
-              alt="Deck Presentation 01"
-              style={{
-                width: "100% ", // Adjust the width of the image as needed
-                height: "100px", // Adjust the height of the image as needed
-                borderRadius: "5px", // Adjust the border radius as needed
-              }}
-            />
-          </Link> */}
-          {/* <h6 style={{ color: "gray" }}>Deck Presentation 01</h6> */}
-        </div>
+            <div className="model-drop">
+              {/* <div className="imageContainer"></div> */}
 
-    <Dropzone
-       getUploadParams={getUploadParams}
-       onChangeStatus={handleChangeStatus}
-       onSubmit={handleSubmit}
-     accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.google-apps.presentation"
-    >
-      </Dropzone>
-</div>
-        
+              <Dropzone
+                getUploadParams={getUploadParams}
+                onChangeStatus={handleChangeStatus}
+                onSubmit={handleSubmit}
+                accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.google-apps.presentation"
+              ></Dropzone>
+            </div>
 
-            <div
-              style={{
-                marginTop: "1rem",
-                display: "flex",
-                justifyContent: "center",
-                color: "black",
-              }}
-            >
-              or
-            </div>
-            <div
-              style={{
-                marginTop: "1rem",
-                display: "flex",
-                justifyContent: "center",
-                color: "black",
-              }}
-            >
-              Import from Google Slides
-            </div>
-            <div
-              style={{
-                marginTop: "1rem",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
+            <div className="model-or">or</div>
+            <div className="model-google">Add google slides presentation</div>
+            <div className="model-google-import">
               <input
                 type="text"
-                placeholder="Google Slides URL"
+                placeholder="Paste google slides link here"
                 value={inputUrl}
                 onChange={(e) => setInputUrl(e.target.value)}
-                style={{
-                  border: "1px solid #000",
-                  padding: "8px",
-                  borderRadius: "5px",
-                  width: "80%",
-                }}
               />
-            </div>
-            <div
-              style={{
-                marginTop: "1rem",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
               <button
+                className="google-import"
                 onClick={() => handleFetchDoc()}
-                style={{
-                  backgroundColor: "black",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  padding: "12px",
-                  width: "80%",
-                }}
               >
                 Import
               </button>
             </div>
+            <div className="model-sure">Make sure your presentation can be viewed by 'Anyone with link'</div>
           </div>
         )}
 
-        {/* Loading Modal */}
-        {isLoading && (
-          <div
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "white",
-              boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.2)",
-              padding: "16px",
-              borderRadius: "10px",
-              width: "520px",
-              height: "400px",
-              display: "flex",
-              flexDirection: "column",
-              // alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <h6 style={{ textAlign: "center", color: "black" }}>
-              Importing...
-            </h6>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "1rem",
-              }}
-            >
-              <progress
-                style={{
-                  width: "80%",
-                  height: "45px",
-                }}
-                max="100"
-                value="60" // Set the value dynamically based on the progress
-              ></progress>
-            </div>
-            <button
-              style={{
-                marginTop: "1rem",
-                border: "1px solid #000",
-                padding: "12px",
-                borderRadius: "5px",
-                backgroundColor: "black",
-                color: "white",
-                // width: "80px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={handleCloseModal}
-            >
-              Cancel
-            </button>
-          </div>
-        )}
-
-        {/* Imported Modal */}
-        {isImported && (
-          <div
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "white",
-              boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.2)",
-              padding: "16px",
-              borderRadius: "10px",
-              width: "520px",
-              height: "400px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <h6 style={{ color: "black" }}>Deck Imported</h6>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column", // Display buttons in a column
-                alignItems: "center", // Center buttons horizontally
-                marginTop: "1rem",
-              }}
-            >
-              <button
-                style={{
-                  border: "1px solid #000",
-                  padding: "12px",
-                  borderRadius: "5px",
-                  backgroundColor: "black",
-                  color: "white",
-                  textAlign: "center",
-                  minWidth: "100px",
-                  marginBottom: "1rem", // Add margin to separate buttons
-                }}
-                onClick={() => {
-                  // Handle opening the deck
-                }}
-              >
-                Open Deck
-              </button>
-              <button
-                style={{
-                  border: "1px solid #000",
-                  padding: "12px",
-                  borderRadius: "5px",
-                  backgroundColor: "black",
-                  color: "white",
-                  textAlign: "center",
-                  minWidth: "100px",
-                }}
-                onClick={handleCloseModal}
-              >
-                Go Back
-              </button>
-            </div>
-          </div>
-        )}
-       </div>
+        {/* loading model */}
+        {isLoading && <LoadingModal handleCloseModal={handleCloseModal} />}
+        {/* imported model */}
+        {isImported && <ImportedModal handleCloseModal={handleCloseModal} />}
+      </div>
     </>
-  )
+  );
 };
 
 export default Drag;

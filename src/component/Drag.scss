@@ -1,10 +1,4 @@
-/* Drag.scss */
-
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // height: 100vh;
 }
 
 .drag-container {
@@ -12,172 +6,116 @@
   gap: 20px;
 }
 
-.decks-section {
-  display: flex;
-  gap: 20px;
-}
-
-.decks-section > h2 {
+h2 {
   color: black;
 }
 
-.add-new-button {
-  border: 1px dotted #000;
+.deck-add-new >button {
+  border: 1px solid black;
+  background-color: black;
   border-radius: 8px;
-  padding: 1px;
+  padding: 6px;
   text-align: center;
   width: 5.9rem;
-  height: 2.5rem;
-  background-color: black;
+  height: "2.5rem";
+  text-align: center;
   color: white;
 }
+.deck-area {
+  display: flex;
+  // flexDirection: "column",
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
 
-.modal {
+// isModelopen
+
+.deck-model {
   position: fixed;
-  top: 50%;
+  display: flex;
+  flex-direction: column;
+  // gap: .5rem;
+  top: 51%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
   box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.2);
   padding: 16px;
   border-radius: 10px;
-  width: 520px;
-  height: 400px;
+  min-width: 60%;
+  min-height: 55vh;
 }
 
-.modal-title {
+.model-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-left {
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+  align-items: center;
+}
+.top-left >span {
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.model-top > p{
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  height: 1.5rem;
+  font-size: 1rem;
   color: black;
 }
 
-.upload-section {
+.model-drop {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
 }
 
-.file-info {
-  display: flex;
-  align-items: center;
-}
-
-.file-button {
-  border: 1px solid #000;
-  padding: 12px;
-  text-align: center;
-}
-
-.remove-button {
-  border: 1px solid #000;
-  padding: 12px;
-  text-align: center;
-  margin-left: 8px;
-}
-
-.upload-button {
-  border: 1px solid #000;
-  color: black;
-  border-radius: 5px;
-  padding: 12px;
-  text-align: center;
-}
-
-.or-text {
+.model-or {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
   color: black;
 }
-
-.import-text {
+.model-google {
   margin-top: 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   color: black;
 }
-
-.url-input-section {
+.model-google-import {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
+  gap: 1rem;
 }
-
-.url-input {
+input {
   border: 1px solid #000;
   padding: 8px;
   border-radius: 5px;
-  width: 80%;
+  // width: 350%;
+  flex-grow: 4;
 }
 
-.import-button-section {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-}
-
-.import-button {
+.google-import{
   background-color: black;
   color: white;
   border: none;
   border-radius: 5px;
   padding: 12px;
-  width: 80%;
+  // width: 10%;
 }
 
-.close-button {
-  margin-top: 1rem;
-  border: 1px solid #000;
-  padding: 12px;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-  text-align: center;
-}
-
-.progress-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.cancel-button {
-  margin-top: 1rem;
-  border: 1px solid #000;
-  padding: 12px;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imported-button-section {
+.model-sure {
   margin-top: 1rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.imported-button {
-  border: 1px solid #000;
-  padding: 12px;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-  text-align: center;
-  min-width: 100px;
-  margin-bottom: 1rem;
-}
-
-.open-deck-button {
-  margin-right: 10px;
-}
-
-.go-back-button {
-  margin-left: 10px;
-}
-.deck-image {
-  width: 20px;
-  height: 10px;
-  // Add any other styles you want
+  justify-content: start;
+  color: black; 
 }
