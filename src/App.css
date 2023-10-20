@@ -1,4 +1,3 @@
-
 :root {
   margin: 0;
   padding: 0;
@@ -19,9 +18,6 @@
   width: 300px;
   height: 200px;
 }
- .linky{
-  display: flex;
-}
 .imageContainer p{
   color: black;
   text-align: center;
@@ -38,7 +34,11 @@
   min-height: 400px !important;
 } */
 .dzu-dropzone{
- position: absolute !important;
+ /* position: absolute !important; */
+ border: 2px dotted black !important;
+}
+.dzu-inputLabel{
+  color: gray !important;
 }
 
 .login{

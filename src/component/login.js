@@ -24,9 +24,12 @@ function Login() {
                     userLogo:object.picture
                   }
                   console.log("ssssssssssssssssssssssskkkkkkkkkk",formdata);
-                  // const apiResponse = await callAPI(apiUrls.REGISTER, {}, "POST",formdata);
-                  // console.log(apiResponse,"apiiiiiiiii");
-                  // localStorage.setItem("userId", apiResponse.data.userId);
+                  let headersObj={
+                    'Content-Type':  'application/json'
+                  }
+                  const apiResponse = await callAPI(apiUrls.REGISTER, {}, "POST",formdata,{},headersObj);
+                  console.log(apiResponse,"apiiiiiiiii");
+                  localStorage.setItem("userId", apiResponse.data.userId);
                   
                   
                   navigate('/drag')
@@ -34,7 +37,7 @@ function Login() {
                   localStorage.setItem("userName", object.name);
                   localStorage.setItem("userEmail", object.email);
                   localStorage.setItem("userPic", object.picture);
-                  console.log(object);
+                  // console.log(object);
                 }}
                 onError={() => {
                   console.log("Login Failed");

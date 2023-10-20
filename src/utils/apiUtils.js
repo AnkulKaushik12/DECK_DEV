@@ -14,7 +14,7 @@ function callAPI(path, params, method, data = null, options = {}, headersObj = {
     const url = API_ROOT + path;
     const headers = {
         Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
+        
         ...headersObj,
     };
 

@@ -23,7 +23,7 @@ const LandingPage = () => {
              pauseOnHover: true,
              draggable: true,
              progress: undefined,
-             theme: "dark",
+             theme: "colored",
            });
            
          } else {
@@ -36,7 +36,7 @@ const LandingPage = () => {
              pauseOnHover: true,
              draggable: true,
              progress: undefined,
-             theme: "dark ",
+             theme: "colored ",
            });
          }
        } else {
