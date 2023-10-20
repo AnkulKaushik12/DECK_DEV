@@ -23,10 +23,24 @@ h2 {
 }
 .deck-area {
   display: flex;
-  // flexDirection: "column",
   align-items: center;
-  gap: 2rem;
+  justify-content: start;
+  // flex-wrap: wrap;
+  width: 100%;
   margin-top: 2rem;
+}
+.deck-image {
+  display: flex;
+  gap: 2rem;
+  width: 700px;
+  height: 200px;
+}
+.deck-id {
+}
+.deck-images {
+  height: 140px;
+  width: 220px;
+  border-radius: 25px;
 }
 
 // isModelopen

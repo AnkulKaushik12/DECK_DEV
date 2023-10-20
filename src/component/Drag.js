@@ -163,20 +163,16 @@ const Drag = () => {
           </div>
         </div>
         <div className="deck-area">
-        <Link to={`/presentation/${1}`} className="linky">
+        <Link to={`/presentation/${1}`} className="deck-image">
             {val.map((image, i) => (
-              <div key={image.id}>
+              <div key={image.id} className="deck-id">
                 <img
                   src={image}
                   name="image"
                   alt={`Im`}
                   // value={i+1}
                   // onClick={handleImageClick(image.value)}
-                  style={{
-                    width: "90%",
-                    height: "120px",
-                    borderRadius: "15px",
-                  }}
+                  className="deck-images"
                 />
                 <p>{i + 1}</p>
               </div>
@@ -207,8 +203,8 @@ const Drag = () => {
               <p onClick={handleCloseModal}>X</p>
             </div>
             <div className="model-drop">
-              {/* <div className="imageContainer"></div> */}
-
+              <div className="imageContainer"></div>
+              
               <Dropzone
                 getUploadParams={getUploadParams}
                 onChangeStatus={handleChangeStatus}
