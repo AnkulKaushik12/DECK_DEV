@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import "./presentation.scss";
+import Tesseract from 'tesseract.js'
 
 function Custom() {
+  const data = useParams();
+  console.log(data);
+  let userId = 1;
+  let deckId = 2;
 
-// const location = useLocation();
-const data = useParams();
-console.log(data);
-let userId = 1;
-let deckId = 2;
-
-let imgs=[]
-for(var i=0; i<5; i++){
-imgs.push({id:{i},value:`http://localhost:5001/uploads/${userId}/${deckId}/--${i}.jpg`})
-}
-
+  let imgs = [];
+  for (var i = 0; i < 5; i++) {
+    imgs.push({ id: i, value: `http://localhost:5001/uploads/${userId}/${deckId}/--${i}.jpg` });
+  }
 
   const [wordData, setWordData] = useState(imgs[0]);
   const [val, setVal] = useState(0);
+  const [ocrResult, setOcrResult] = useState('');
+  const [generating, setGenerating] = useState(false);
 
   const handleClick = (index) => {
     setVal(index);
@@ -39,6 +38,37 @@ imgs.push({id:{i},value:`http://localhost:5001/uploads/${userId}/${deckId}/--${i
     const wordSlider = imgs[index];
     setWordData(wordSlider);
   };
+
+  const handleGenerate = async () => {
+    if (wordData) {
+      setGenerating(true);
+  
+      try {
+        const response = await fetch(wordData.value);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const blob = await response.blob();
+        const imageFile = new File([blob], "image.jpg", { type: "image/jpeg" });
+  
+        const worker = Tesseract.createWorker();
+        await worker.load();
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+  
+        const { data: { text } } = await worker.recognize(imageFile);
+        setOcrResult(text);
+  
+        await worker.terminate();
+        setGenerating(false);
+      } catch (error) {
+        console.error("Error fetching the image:", error);
+        setGenerating(false);
+      }
+    }
+  };
+  
 
   return (
     <div className="main">
@@ -73,11 +103,14 @@ imgs.push({id:{i},value:`http://localhost:5001/uploads/${userId}/${deckId}/--${i
         <div className="notes">
           <div className="notes-flex">
             <h3>Notes</h3>
-            <button>Generate</button>
+            <button onClick={handleGenerate} disabled={generating}>
+              Generate
+            </button>
           </div>
           <div className="notes-input">
             <input
               type="text"
+              value={ocrResult}
               placeholder="Your presentation notes"
               style={{ width: "250px", height: "474px" }}
             />
