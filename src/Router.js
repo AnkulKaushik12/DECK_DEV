@@ -6,6 +6,8 @@ import SidebarLayout from "./layout/BaseLayout/SideBarLayout/index";
 import login from "./component/login";
 import presentation from "./component/presentation";
 import landingPage from "./component/landingPage";
+import presenter from "./component/Presenter"
+import presentPerson from './component/presentPerson'
 // import SidebarLayout from './layouts/SidebarLayout'
 // import SidebarLayoutTeacher from './layouts/sidebarLayoutsTeacher'
 
@@ -81,11 +83,24 @@ const routes = () => {
       element: lazy(() => import("./component/Drag")),
     },
     {
+     layout: SidebarLayout,
+     exact: true,
+     path: "/presenter",
+     element: lazy(() => import("./component/Presenter")),
+    },
+    {
       layout: BaseLayout,
       // guard: Guest,
       exact: true,
       path: "/presentation/:id",
       element: lazy(() => import("./component/presentation")),
+    },
+    {
+      layout: BaseLayout,
+      // guard: Guest,
+      exact: true,
+      path: "/presentPerson",
+      element: lazy(() => import("./component/presentPerson")),
     },
   ];
 };
