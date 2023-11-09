@@ -15,7 +15,7 @@
 export const apiUrls = {
 
   
-  UPLOADFILE: "/uploadFile",
+
   GETFILE:"/deck/listAll",
   CONVERT:"/deck/converttoimage",
   REGISTER:"/register",
@@ -24,5 +24,6 @@ export const apiUrls = {
   GETSLIDESTEXT:"/deck/slideDataById",
   CREATESLIDETEXT:"/createSummary",
   GETSLIDESID:"/getSlideId"
+
   
 };

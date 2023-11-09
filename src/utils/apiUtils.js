@@ -13,9 +13,8 @@ function callAPI(path, params, method, data = null, options = {}, headersObj = {
     const API_ROOT = defaultConfig.baseAPIUrl;
     const url = API_ROOT + path;
     const headers = {
-        
-        'Content-Type': 'multipart/form-data',
         Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
         ...headersObj,
     };
 

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import "./presentation.scss";
+import Tesseract from 'tesseract.js'
 
 function Custom() {
-  const imgs = [
-    { id: 0, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-    { id: 1, value: "https://source.unsplash.com/user/c_v_r/100x100" },
-    { id: 2, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-    { id: 3, value: "https://source.unsplash.com/user/c_v_r/100x100" },
-    { id: 4, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-    { id: 5, value: "https://source.unsplash.com/user/c_v_r/100x100" },
-    { id: 6, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-    { id: 7, value: "https://source.unsplash.com/user/c_v_r/100x100" },
-    { id: 8, value: "https://source.unsplash.com/user/c_v_r/1900x800" },
-  ];
+  const data = useParams();
+  console.log(data);
+  let userId = 1;
+  let deckId = 2;
+
+  let imgs = [];
+  for (var i = 0; i < 5; i++) {
+    imgs.push({ id: i, value: `http://localhost:5001/uploads/${userId}/${deckId}/--${i}.jpg` });
+  }
 
   const [wordData, setWordData] = useState(imgs[0]);
   const [val, setVal] = useState(0);
+  const [ocrResult, setOcrResult] = useState('');
+  const [generating, setGenerating] = useState(false);
 
   const handleClick = (index) => {
     setVal(index);
@@ -36,6 +38,37 @@ function Custom() {
     const wordSlider = imgs[index];
     setWordData(wordSlider);
   };
+
+  const handleGenerate = async () => {
+    if (wordData) {
+      setGenerating(true);
+  
+      try {
+        const response = await fetch(wordData.value);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const blob = await response.blob();
+        const imageFile = new File([blob], "image.jpg", { type: "image/jpeg" });
+  
+        const worker = Tesseract.createWorker();
+        await worker.load();
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+  
+        const { data: { text } } = await worker.recognize(imageFile);
+        setOcrResult(text);
+  
+        await worker.terminate();
+        setGenerating(false);
+      } catch (error) {
+        console.error("Error fetching the image:", error);
+        setGenerating(false);
+      }
+    }
+  };
+  
 
   return (
     <div className="main">
@@ -70,11 +103,14 @@ function Custom() {
         <div className="notes">
           <div className="notes-flex">
             <h3>Notes</h3>
-            <button>Generate</button>
+            <button onClick={handleGenerate} disabled={generating}>
+              Generate
+            </button>
           </div>
           <div className="notes-input">
             <input
               type="text"
+              value={ocrResult}
               placeholder="Your presentation notes"
               style={{ width: "250px", height: "474px" }}
             />
