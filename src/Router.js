@@ -1,10 +1,11 @@
 import React, { Suspense, Fragment, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import Guest from './component/Guest';
+import Guest from './component/Guest';
 import BaseLayout from "./layout/BaseLayout/BaseLayout/Layout";
 import SidebarLayout from "./layout/BaseLayout/SideBarLayout/index";
 import login from "./component/login";
 import presentation from "./component/presentation";
+import landingPage from "./component/landingPage";
 // import SidebarLayout from './layouts/SidebarLayout'
 // import SidebarLayoutTeacher from './layouts/sidebarLayoutsTeacher'
 
@@ -17,7 +18,7 @@ export function RenderRout() {
         <Suspense fallback={<div>Please wait</div>}>
           <Routes>
             {routes().map((route, i) => {
-              //   const Guard = route.guard || Fragment;
+                const Guard = route.guard || Fragment;
               const Layout = route?.layout || Fragment;
               const Component = route?.element;
               return (
@@ -26,11 +27,11 @@ export function RenderRout() {
                   path={route.path}
                   exact={route.exact}
                   element={
-                    // <Guard>
+                    <Guard>
                     <Layout>
                       <Component />
                     </Layout>
-                    // </Guard>
+                     </Guard>
                   }
                 />
               );
@@ -46,14 +47,7 @@ const routes = () => {
   return [
     {
       layout: BaseLayout,
-      // guard: Guest,
-      exact: true,
-      path: "/login",
-      element: lazy(() => import("./component/login")),
-    },
-    {
-      // layout: SidebarLayout,
-      // guard: Guest,
+      guard: Guest,
       exact: true,
       path: "/",
       element: lazy(() => import("./component/login")),
@@ -62,9 +56,16 @@ const routes = () => {
       layout: SidebarLayout,
       // guard: Guest,
       exact: true,
-      path: "/ppt",
-      element: lazy(() => import("./component/Reactppt")),
+      path: "/import",
+      element: lazy(() => import("./component/import")),
     },
+    // {
+    //   // layout: SidebarLayout,
+    //   // guard: Guest,
+    //   exact: true,
+    //   path: "/",
+    //   element: lazy(() => import("./component/landingPage")),
+    // },
     {
       layout: BaseLayout,
       // guard: Guest,
@@ -74,7 +75,7 @@ const routes = () => {
     },
     {
       layout: SidebarLayout,
-      // guard: Guest,
+      guard: Guest,
       exact: true,
       path: "/drag",
       element: lazy(() => import("./component/Drag")),
