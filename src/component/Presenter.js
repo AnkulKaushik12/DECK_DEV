@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './presenter.scss';
 import "react-dropzone-uploader/dist/styles.css";
-import Dropzone from "react-dropzone-uploader";
+// import Dropzone from "react-dropzone-uploader";
 import PresenterLoad from './presenterLoad'
 import PresenterUpload from './presenterUpload'
+import Dropzone from './Dropzone'
 import { Link, useNavigate } from 'react-router-dom';
 import presentPerson from './presentPerson';
 
@@ -52,9 +53,9 @@ const Presenter = () => {
       </div>
       <div className='welcome-video'>
         <p>We're glad to have you here and test it out. To get stated, have a look at the video below:</p>
-        <iframe>
-          <video></video>
-        </iframe>
+          <video width="220" height="140" controls>
+          <source src={require('../assets/img/galaxy.mp4')} type="video/mp4" />
+          </video>
       </div>
 
     </div>
@@ -103,8 +104,8 @@ const Presenter = () => {
             <span>Presenter's Name</span>
             <p>Deckie</p>
           </div>
-          <div className="model-drop">
-            <div className="imageContainer"></div>
+          <div className="">
+            {/* <div className="imageContainer"></div>
 
             <Dropzone
             label= "hello mp3"
@@ -114,12 +115,14 @@ const Presenter = () => {
             inputLabelWithFiles="mp2"
             >
 
-            </Dropzone>
+            </Dropzone> */}
+            {/* <p>efn</p> */}
+            <Dropzone />
           </div>
 
 
           <div className="model-google-import">
-            <p>Dont't know what to speak?<u>Download as sample script</u></p>
+            <p>Dont't know what to speak?<u></u></p>
             <button
               className="google-import"
               onClick={handleGenerateVoiceSample}
