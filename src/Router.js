@@ -57,14 +57,7 @@ const routes = () => {
       path: "/",
       element: lazy(() => import("./component/login")),
     },
-    {
-      layout: SidebarLayout,
-      // guard: Guest,
-      exact: true,
-      path: "/import",
-      element: lazy(() => import("./component/import")),
 
-    },
     // {
     //   // layout: SidebarLayout,
     //   // guard: Guest,

@@ -15,6 +15,7 @@ function callAPI(path, params, method, data = null, options = {}, headersObj = {
     const headers = {
         Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
+        // 'Content-Type':"application/json",
         ...headersObj,
     };
 

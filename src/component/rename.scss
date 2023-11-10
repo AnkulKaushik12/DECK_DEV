@@ -1,0 +1,10 @@
+.sub-model {
+    background-color: red;
+    color: green;
+}
+
+.sub-model > h3 {
+    display: flex;
+    justify-content: end;
+    color: green;
+}

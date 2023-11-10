@@ -24,9 +24,9 @@ function Login() {
                     userLogo:object.picture
                   }
                   console.log("ssssssssssssssssssssssskkkkkkkkkk",formdata);
-                  // const apiResponse = await callAPI(apiUrls.REGISTER, {}, "POST",formdata);
-                  // console.log(apiResponse,"apiiiiiiiii");
-                  // localStorage.setItem("userId", apiResponse.data.userId);
+                  const apiResponse = await callAPI(apiUrls.REGISTER, {}, "POST", formdata);
+                  console.log(apiResponse,"apiiiiiiiii");
+                  localStorage.setItem("userId", apiResponse.data.userId);
                   
                   
                   navigate('/drag')
