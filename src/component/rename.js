@@ -10,14 +10,21 @@ const Rename = ({ initialName, onUpdate, onClose }) => {
 
   return (
     <div className="sub-modal">
-      <h3>Rename</h3>
-      <input
+        <div className='rename'>
+<p>Rename Deck</p>
+<span onClick={onClose}>x</span>
+        </div>
+        <div className='update'>
+        <p>Deck Name</p>
+        <div className='update-input'>
+        <input
         type="text"
         value={editedName}
         onChange={(e) => setEditedName(e.target.value)}
       />
       <button onClick={handleUpdate}>Update</button>
-      <button onClick={onClose}>close</button>
+        </div>
+        </div>
     </div>
   );
 };
