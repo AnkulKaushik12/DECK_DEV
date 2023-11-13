@@ -9,6 +9,7 @@ import { callAPI } from "../utils/apiUtils";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
 import Rename from "./rename";
+import Delete from "./delete"
 import "./Drag.scss";
 const Drag = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,6 +27,8 @@ const Drag = () => {
   const [isDotShow, setIsDotShow] = useState(false);
   const [editedDeckName, setEditedDeckName] = useState("");
   const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -192,6 +195,7 @@ const Drag = () => {
     setIsDotShow(true)
     // setEditedDeckName(false)
     setEditedDeckName(editedDeckName || "Deck presentation 01");
+    setIsDeleteModalOpen(false);
   }
   
   const handleRenameClick = () => {
@@ -199,6 +203,7 @@ const Drag = () => {
     setIsRenameModalOpen(true);
     // Close the three dots modal
     setIsDotShow(false);
+    setIsDeleteModalOpen(false);
   }
 
   const handleUpdateDeckName = (newName) => {
@@ -211,6 +216,20 @@ const Drag = () => {
     // Close the rename modal after updating
     setIsDotShow(false);
   };
+
+  const handleDeleteClick = () => {
+    // Open Delete modal
+    setIsDeleteModalOpen(true);
+    // Close other modals
+    setIsRenameModalOpen(false);
+    setIsDotShow(false);
+  }
+
+  const handleCancelDelete = () => {
+    // Set the state or perform any action to close the Delete modal
+    setIsDeleteModalOpen(false);
+  };
+
   return (
     <>
       <div className="container">
@@ -261,7 +280,7 @@ const Drag = () => {
         <div className="model-click">
           <p onClick={handleRenameClick}>Rename</p>
           <p>Copy link</p>
-          <p>Delete</p>
+          <p onClick={handleDeleteClick}>Delete</p>
         </div>
        )} 
 
@@ -272,6 +291,9 @@ const Drag = () => {
           onClose={() => setIsRenameModalOpen(false)}
         />
       )}
+
+{isDeleteModalOpen && <Delete onCancel={handleCancelDelete} />} 
+
         {isModalOpen && (
           <div
             className="deck-model"
